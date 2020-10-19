@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Gameplay;
 using Targets;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Weapons
         {
             if (CurrentAmmo <= 0) return;
             CurrentAmmo--;
-            Debug.Log($"Shot Missile");
+            Hud.OnAmmoCountUpdated(GetAmmo());
             var hit = CheckForHit(startPosition, direction);
             if (!hit || (!hit.transform.CompareTag("Enemy") && !hit.transform.CompareTag("Box"))) return;
             var target = hit.transform.gameObject;

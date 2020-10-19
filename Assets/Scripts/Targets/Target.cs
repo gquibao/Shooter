@@ -10,9 +10,13 @@ namespace Targets
 
         public void TakeDamage(float damageTaken)
         {
-            Debug.Log($"{gameObject.name} took {damageTaken} damage");
             Life -= damageTaken;
             if (Life <= 0) Destroy(gameObject);
+        }
+
+        public void OnDestroy()
+        {
+            
         }
     }
 }

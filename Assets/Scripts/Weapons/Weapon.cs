@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Weapons
 {
@@ -30,12 +31,17 @@ namespace Weapons
 
         public void AddAmmo()
         {
-            
+            CurrentAmmo += MaxAmmo / 2;
         }
 
         public Sprite GetSprite()
         {
             return CharacterSprite;
+        }
+
+        public Tuple<int, int> GetAmmo()
+        {
+            return new Tuple<int, int>(CurrentAmmo, MaxAmmo);
         }
     }
 }

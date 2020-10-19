@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Gameplay;
 using UnityEngine;
 using Weapons;
 public class PlayerStatus : MonoBehaviour
@@ -38,6 +39,7 @@ public class PlayerStatus : MonoBehaviour
         if (weaponIndex > _weaponsList.Count - 1) return;
         currentWeapon = _weaponsList[weaponIndex];
         spriteRenderer.sprite = currentWeapon.GetSprite();
+        Hud.OnAmmoCountUpdated.Invoke(currentWeapon.GetAmmo());
     }
 
     public void MeleeAttack(Vector2 direction)

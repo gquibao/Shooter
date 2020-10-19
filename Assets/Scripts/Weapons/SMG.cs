@@ -1,4 +1,5 @@
-﻿using Targets;
+﻿using Gameplay;
+using Targets;
 using UnityEngine;
 
 namespace Weapons
@@ -20,7 +21,7 @@ namespace Weapons
             CurrentAmmo--;
             _shotCount++;
             Fire(startPosition, direction);
-            Debug.Log($"Shot SMG");
+            Hud.OnAmmoCountUpdated(GetAmmo());
             var hit = CheckForHit(startPosition, direction);
             if (!hit || (!hit.transform.CompareTag("Enemy") && !hit.transform.CompareTag("Box"))) return;
             var target = hit.transform.gameObject;
