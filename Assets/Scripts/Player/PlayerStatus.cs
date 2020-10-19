@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Weapons;
-
 public class PlayerStatus : MonoBehaviour
 {
     public float life;
     public Melee meleeWeapon;
 
     [SerializeField] private WeaponData meleeData;
+    [SerializeField] private WeaponData revolverData;
+    [SerializeField] private WeaponData smgData;
+    [SerializeField] private WeaponData missileData;
     [SerializeField] private SpriteRenderer spriteRenderer;
     
     public Weapon currentWeapon;
@@ -19,6 +20,10 @@ public class PlayerStatus : MonoBehaviour
     {
         _weaponsList = new List<Weapon>();
         meleeWeapon = new Melee(meleeData);
+        _weaponsList.Add(new Revolver(revolverData));
+        _weaponsList.Add(new Smg(smgData));
+        _weaponsList.Add(new MissileLauncher(missileData));
+        SetCurrentWeapon(0);
     }
 
     private void Update()
@@ -33,7 +38,6 @@ public class PlayerStatus : MonoBehaviour
         if (weaponIndex > _weaponsList.Count - 1) return;
         currentWeapon = _weaponsList[weaponIndex];
         spriteRenderer.sprite = currentWeapon.GetSprite();
-        Debug.Log($"Trocou de arma para {weaponIndex}");
     }
 
     public void MeleeAttack(Vector2 direction)
@@ -41,12 +45,9 @@ public class PlayerStatus : MonoBehaviour
         meleeWeapon.Fire(transform.position, direction);
     }
 
-    public void AddWeapon(Weapon weaponToAdd)
+    public void PickupAmmo()
     {
-        var weapon = _weaponsList.Find(weaponToCompare => weaponToCompare == weaponToAdd);
-        if (weapon == null)
-        {
-            _weaponsList.Add(weaponToAdd);
-        }
+        var random = Random.Range(0, 3);
+        _weaponsList[random].AddAmmo();
     }
 }

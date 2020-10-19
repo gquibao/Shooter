@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a674e4df3f4943d4dbf3315f8a6e2de1, type: 3}
-  m_Name: MissileLauncher
+  m_Script: {fileID: 11500000, guid: 6fd6d985ba27cc744a5a314249847925, type: 3}
+  m_Name: Enemy1
   m_EditorClassIdentifier: 
-  damage: 100
-  maxAmmo: 100
-  reloadTime: 0
-  range: 20
-  characterSprite: {fileID: 21300000, guid: ca05f196fc95db34b98e1d0b84370234, type: 3}
+  life: 50
+  damage: 10

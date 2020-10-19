@@ -6,7 +6,7 @@ namespace Weapons
     public class WeaponData : ScriptableObject
     {
         public int damage;
-        public float maxAmmo;
+        public int maxAmmo;
         public float reloadTime;
         public float range;
         public Sprite characterSprite;

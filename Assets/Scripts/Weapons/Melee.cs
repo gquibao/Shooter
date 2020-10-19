@@ -1,4 +1,5 @@
 ﻿using System;
+using Targets;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -12,12 +13,13 @@ namespace Weapons
             
         }
 
-        public void Fire(Vector2 startPosition, Vector2 direction)
+        public override void Fire(Vector2 startPosition, Vector2 direction)
         {
-            RaycastHit2D hit;
-            hit = Physics2D.Raycast(startPosition, direction, Range);
-            if (hit.transform != null)
-                Debug.Log($"{hit.transform.name} took {Damage} damage");
+            var hit = CheckForHit(startPosition, direction);
+            if (!hit || (!hit.transform.CompareTag("Enemy") && !hit.transform.CompareTag("Box"))) return;
+            Debug.Log("HittingEnemy");
+            var target = hit.transform.gameObject;
+            target.GetComponent<Target>().TakeDamage(Damage);
         }
     }
 }
