@@ -16,7 +16,8 @@ namespace Player
 
         private void Update()
         {
-            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var pos = Camera.main.WorldToScreenPoint(transform.position);
+            var mousePosition = Input.mousePosition - pos;
             mousePosition.z = 1;
             lineRenderer.SetPosition(1, mousePosition);
             if (Input.GetMouseButtonDown(0))
