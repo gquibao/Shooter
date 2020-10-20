@@ -7,16 +7,18 @@ using Random = UnityEngine.Random;
 
 public class PlayerStatus : MonoBehaviour
 {
+    public LayerMask attackLayerMask;
+    
     private float health;
     private float maxHealth = 100;
-    public Melee meleeWeapon;
+    private Melee meleeWeapon;
 
     [SerializeField] private WeaponData meleeData;
     [SerializeField] private WeaponData revolverData;
     [SerializeField] private WeaponData smgData;
     [SerializeField] private WeaponData missileData;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    
+
     public Weapon currentWeapon;
 
     private List<Weapon> _weaponsList;
@@ -49,7 +51,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void MeleeAttack(Vector2 direction)
     {
-        meleeWeapon.Fire(transform.position, direction);
+        meleeWeapon.Fire(transform.position, direction, attackLayerMask);
     }
 
     public void PickupAmmo()
