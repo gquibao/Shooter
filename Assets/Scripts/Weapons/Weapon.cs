@@ -32,6 +32,7 @@ namespace Weapons
         public void AddAmmo()
         {
             CurrentAmmo += MaxAmmo / 2;
+            CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0, MaxAmmo);
         }
 
         public Sprite GetSprite()

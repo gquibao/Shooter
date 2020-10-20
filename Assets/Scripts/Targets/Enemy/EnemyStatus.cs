@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Gameplay;
 using Targets;
 using UnityEngine;
 
@@ -10,5 +12,10 @@ public class EnemyStatus : Target
     {
         Life = targetData.life;
         _damage = targetData.damage;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.AddPoints(20);
     }
 }
