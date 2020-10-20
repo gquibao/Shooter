@@ -19,14 +19,14 @@ namespace Weapons
             MaxAmmo = data.maxAmmo;
             CurrentAmmo = MaxAmmo;
         }
-        public virtual void Fire(Vector2 startPosition, Vector2 direction)
+        public virtual void Fire(Vector2 startPosition, Vector2 direction, LayerMask layerMask)
         {
             
         }
 
-        protected RaycastHit2D CheckForHit(Vector2 startPosition, Vector2 direction)
+        protected RaycastHit2D CheckForHit(Vector2 startPosition, Vector2 direction, LayerMask layerMask)
         {
-            return Physics2D.Raycast(startPosition, direction, Range);
+            return Physics2D.Raycast(startPosition, direction, Range, layerMask);
         }
 
         public void AddAmmo()

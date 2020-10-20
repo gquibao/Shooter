@@ -22,7 +22,7 @@ namespace Player
             lineRenderer.SetPosition(1, mousePosition);
             if (Input.GetMouseButtonDown(0))
             {
-                _playerStatus.currentWeapon.Fire(transform.position, mousePosition);
+                _playerStatus.currentWeapon.Fire(transform.position, mousePosition, _playerStatus.attackLayerMask);
             }
 
             if (Input.GetMouseButtonDown(1))
