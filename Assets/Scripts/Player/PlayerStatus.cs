@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Gameplay;
 using UnityEngine;
 using Weapons;
+using Random = UnityEngine.Random;
+
 public class PlayerStatus : MonoBehaviour
 {
-    public float life;
+    private float health;
+    private float maxHealth = 100;
     public Melee meleeWeapon;
 
     [SerializeField] private WeaponData meleeData;
@@ -19,6 +23,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void Start()
     {
+        health = maxHealth;
         _weaponsList = new List<Weapon>();
         meleeWeapon = new Melee(meleeData);
         _weaponsList.Add(new Revolver(revolverData));
@@ -51,5 +56,12 @@ public class PlayerStatus : MonoBehaviour
     {
         var random = Random.Range(0, 3);
         _weaponsList[random].AddAmmo();
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        health -= damageAmount;
+        Hud.OnHealthCountUpdated.Invoke(new Tuple<float, float>(health, maxHealth));
+        if(health <= 0) Hud.OnGameOver.Invoke();
     }
 }

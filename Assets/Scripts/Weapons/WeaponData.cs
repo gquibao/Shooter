@@ -7,7 +7,6 @@ namespace Weapons
     {
         public int damage;
         public int maxAmmo;
-        public float reloadTime;
         public float range;
         public Sprite characterSprite;
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Targets
 {
@@ -12,11 +11,6 @@ namespace Targets
         {
             Life -= damageTaken;
             if (Life <= 0) Destroy(gameObject);
-        }
-
-        public void OnDestroy()
-        {
-            
         }
     }
 }
