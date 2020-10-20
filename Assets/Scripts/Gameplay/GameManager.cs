@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay
@@ -14,6 +16,10 @@ namespace Gameplay
             IsGameRunning = true;
             Points = 0;
             StartCoroutine(Timer());
+        }
+        private void OnDestroy()
+        {
+            IsGameRunning = false;
         }
 
         private IEnumerator Timer()

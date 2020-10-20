@@ -22,7 +22,7 @@ namespace Gameplay
         public static Action OnPointsAdded;
         public static Action OnGameOver;
 
-        private void Start()
+        private void Awake()
         {
             ammoCount.text = "0/0";
             gameplayScore.text = "0";
@@ -34,6 +34,14 @@ namespace Gameplay
             OnHealthCountUpdated += UpdateHealthCount;
             OnPointsAdded += UpdatePointsCount;
             OnGameOver += GameOver;
+        }
+
+        private void OnDestroy()
+        {
+            OnAmmoCountUpdated -= UpdateAmmoCount;
+            OnHealthCountUpdated -= UpdateHealthCount;
+            OnPointsAdded -= UpdatePointsCount;
+            OnGameOver -= GameOver;
         }
 
         private void UpdateAmmoCount(Tuple<int, int> ammo)

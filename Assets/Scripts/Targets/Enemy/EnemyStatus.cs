@@ -16,6 +16,7 @@ public class EnemyStatus : Target
 
     private void OnDestroy()
     {
-        GameManager.AddPoints(20);
+        if(GameManager.IsGameRunning)
+            GameManager.AddPoints(20);
     }
 }

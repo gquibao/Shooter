@@ -5,65 +5,68 @@ using UnityEngine;
 using Weapons;
 using Random = UnityEngine.Random;
 
-public class PlayerStatus : MonoBehaviour
+namespace Player
 {
-    public LayerMask attackLayerMask;
+    public class PlayerStatus : MonoBehaviour
+    {
+        public LayerMask attackLayerMask;
     
-    private float health;
-    private float maxHealth = 100;
-    private Melee meleeWeapon;
+        private float _health;
+        private const float MAXHealth = 100;
+        private Melee _meleeWeapon;
 
-    [SerializeField] private WeaponData meleeData;
-    [SerializeField] private WeaponData revolverData;
-    [SerializeField] private WeaponData smgData;
-    [SerializeField] private WeaponData missileData;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private WeaponData meleeData;
+        [SerializeField] private WeaponData revolverData;
+        [SerializeField] private WeaponData smgData;
+        [SerializeField] private WeaponData missileData;
+        [SerializeField] private SpriteRenderer spriteRenderer;
 
-    public Weapon currentWeapon;
+        public Weapon CurrentWeapon;
 
-    private List<Weapon> _weaponsList;
+        private List<Weapon> _weaponsList;
 
-    private void Start()
-    {
-        health = maxHealth;
-        _weaponsList = new List<Weapon>();
-        meleeWeapon = new Melee(meleeData);
-        _weaponsList.Add(new Revolver(revolverData));
-        _weaponsList.Add(new Smg(smgData));
-        _weaponsList.Add(new MissileLauncher(missileData));
-        SetCurrentWeapon(0);
-    }
+        private void Start()
+        {
+            _health = MAXHealth;
+            _weaponsList = new List<Weapon>();
+            _meleeWeapon = new Melee(meleeData);
+            _weaponsList.Add(new Revolver(revolverData));
+            _weaponsList.Add(new Smg(smgData));
+            _weaponsList.Add(new MissileLauncher(missileData));
+            SetCurrentWeapon(0);
+        }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SetCurrentWeapon(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SetCurrentWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SetCurrentWeapon(2);
-    }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) SetCurrentWeapon(0);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) SetCurrentWeapon(1);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) SetCurrentWeapon(2);
+        }
 
-    private void SetCurrentWeapon(int weaponIndex)
-    {
-        if (weaponIndex > _weaponsList.Count - 1) return;
-        currentWeapon = _weaponsList[weaponIndex];
-        spriteRenderer.sprite = currentWeapon.GetSprite();
-        Hud.OnAmmoCountUpdated.Invoke(currentWeapon.GetAmmo());
-    }
+        private void SetCurrentWeapon(int weaponIndex)
+        {
+            if (weaponIndex > _weaponsList.Count - 1) return;
+            CurrentWeapon = _weaponsList[weaponIndex];
+            spriteRenderer.sprite = CurrentWeapon.GetSprite();
+            Hud.OnAmmoCountUpdated.Invoke(CurrentWeapon.GetAmmo());
+        }
 
-    public void MeleeAttack(Vector2 direction)
-    {
-        meleeWeapon.Fire(transform.position, direction, attackLayerMask);
-    }
+        public void MeleeAttack(Vector2 direction)
+        {
+            _meleeWeapon.Fire(transform.position, direction, attackLayerMask);
+        }
 
-    public void PickupAmmo()
-    {
-        var random = Random.Range(0, 3);
-        _weaponsList[random].AddAmmo();
-    }
+        public void PickupAmmo()
+        {
+            var random = Random.Range(0, 3);
+            _weaponsList[random].AddAmmo();
+        }
 
-    public void TakeDamage(float damageAmount)
-    {
-        health -= damageAmount;
-        Hud.OnHealthCountUpdated.Invoke(new Tuple<float, float>(health, maxHealth));
-        if(health <= 0) Hud.OnGameOver.Invoke();
+        public void TakeDamage(float damageAmount)
+        {
+            _health -= damageAmount;
+            Hud.OnHealthCountUpdated.Invoke(new Tuple<float, float>(_health, MAXHealth));
+            if(_health <= 0) Hud.OnGameOver.Invoke();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay;
+using Player;
 using UnityEngine;
 using Weapons;
 
@@ -17,6 +18,7 @@ namespace Targets
 
         private void OnDestroy()
         {
+            if (!GameManager.IsGameRunning) return;
             GameManager.AddPoints(10);
             _playerStatus.PickupAmmo();
         }
