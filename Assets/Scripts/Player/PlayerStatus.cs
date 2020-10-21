@@ -58,8 +58,7 @@ namespace Player
 
         public void PickupAmmo()
         {
-            var random = Random.Range(0, 3);
-            _weaponsList[random].AddAmmo();
+            CurrentWeapon.AddAmmo();
         }
 
         public void TakeDamage(float damageAmount)

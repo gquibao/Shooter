@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Player;
 using UnityEngine;
 
 namespace Targets.Enemy
@@ -29,27 +30,14 @@ namespace Targets.Enemy
             return randomDirection;
         }
 
-        private IEnumerator Fire(Vector2 playerCurrentPosition)
-        {
-            yield return new WaitForSeconds(1.5f);
-            lineRenderer.SetPosition(1, playerCurrentPosition);
-            ChangeEdgeColliderPoints(playerCurrentPosition);
-            yield return new WaitForSeconds(2);
-            lineRenderer.SetPosition(1, Vector2.zero);
-            ChangeEdgeColliderPoints(Vector2.zero);
-            _attackingCoroutine = null;
-            _wanderingCoroutine = StartCoroutine(Wandering(GetDirection()));
-        }
-
         private void Update()
         {
             if (_attackingCoroutine != null) return;
-            var hits = Physics2D.CircleCastAll(transform.position, 5f, Vector2.right);
+            var hits = Physics2D.CircleCastAll(transform.position, 10f, Vector2.zero);
             var player = hits.ToList().Find(hit => hit.transform.CompareTag("Player"));
             if (player.transform == null) return;
             StopAllCoroutines();
-            var direction = player.transform.position - transform.position;
-            _attackingCoroutine = StartCoroutine(Fire(direction));
+            _attackingCoroutine = StartCoroutine(Fire(player.transform));
         }
 
         private void ChangeEdgeColliderPoints(Vector2 value)
@@ -58,6 +46,31 @@ namespace Targets.Enemy
             newPoints[0] = Vector2.zero;
             newPoints[1] = value;
             lineCollider.points = newPoints;
+        }
+
+        private IEnumerator Fire(Transform player)
+        {
+            var playerCurrentPosition = player.position - transform.position;
+            yield return new WaitForSeconds(0.5f);
+            lineRenderer.SetPosition(1, playerCurrentPosition);
+            ChangeEdgeColliderPoints(playerCurrentPosition);
+            yield return new WaitForSeconds(0.2f);
+            lineRenderer.SetPosition(1, Vector2.zero);
+            ChangeEdgeColliderPoints(Vector2.zero);
+            _attackingCoroutine = null;
+            StartCoroutine(Chase(player));
+        }
+
+        private IEnumerator Chase(Transform player)
+        {
+            while (Vector2.Distance(transform.position, player.position) < 20)
+            {
+                var targetPosition = player.position - transform.position;
+                transform.Translate(targetPosition * Time.deltaTime * 0.5f);
+                yield return null;
+            }
+            yield return new WaitForSeconds(2);
+            _wanderingCoroutine = StartCoroutine(Wandering(GetDirection()));
         }
 
         private IEnumerator Move(Vector2 targetPosition)

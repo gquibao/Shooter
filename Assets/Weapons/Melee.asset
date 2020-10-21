@@ -16,4 +16,4 @@ MonoBehaviour:
   maxAmmo: 0
   range: 1
   characterSprite: {fileID: 21300000, guid: c44ddaf51d76ee24d9753140b5f0e7b0, type: 3}
-  effect: {fileID: 0}
+  effect: {fileID: 8941808984663435517, guid: cbff1cde2967cd84a8433beb624f06cd, type: 3}

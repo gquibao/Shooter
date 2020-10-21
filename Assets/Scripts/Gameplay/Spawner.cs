@@ -14,11 +14,11 @@ namespace Gameplay
         void Start()
         {
             _player = FindObjectOfType<PlayerStatus>();
-            StartCoroutine(Spawn(enemyPrefab));
-            StartCoroutine(Spawn(boxPrefab));
+            StartCoroutine(Spawn(enemyPrefab, 10));
+            StartCoroutine(Spawn(boxPrefab, 20));
         }
 
-        private IEnumerator Spawn(GameObject prefab)
+        private IEnumerator Spawn(GameObject prefab, int waitTime)
         {
             _directions.ForEach(direction =>
             {
@@ -27,8 +27,8 @@ namespace Gameplay
                 var player2d = new Vector2(playerPosition.x, playerPosition.y);
                 Instantiate(prefab, position + player2d, Quaternion.identity);
             });
-            yield return new WaitForSeconds(10);
-            StartCoroutine(Spawn(prefab));
+            yield return new WaitForSeconds(waitTime);
+            StartCoroutine(Spawn(prefab, waitTime));
         }
     }
 }

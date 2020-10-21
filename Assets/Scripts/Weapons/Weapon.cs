@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay;
 using UnityEngine;
 
 namespace Weapons
@@ -35,6 +36,7 @@ namespace Weapons
         {
             CurrentAmmo += _maxAmmo / 2;
             CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0, _maxAmmo);
+            Hud.OnAmmoCountUpdated.Invoke(GetAmmo());
         }
 
         public Sprite GetSprite()

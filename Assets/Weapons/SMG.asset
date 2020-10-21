@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   maxAmmo: 24
-  reloadTime: 0
-  range: 10
+  range: 20
   characterSprite: {fileID: 21300000, guid: 55cda8026b19f9f41a1930ae26cf6b08, type: 3}
+  effect: {fileID: 8560748625787129908, guid: ba4cf16000dcf194fb01cdb824706e76, type: 3}

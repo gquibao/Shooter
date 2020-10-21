@@ -20,6 +20,7 @@ namespace Weapons
             if (!hit || (!hit.transform.CompareTag("Enemy") && !hit.transform.CompareTag("Box"))) return;
             var target = hit.transform.gameObject;
             target.GetComponent<Target>().TakeDamage(Damage);
+            SpawnEffect(hit.point);
             var secondaryHits = Physics2D.CircleCastAll(target.transform.position, 10f, direction);
             secondaryHits.ToList().ForEach(secondaryHit =>
             {
