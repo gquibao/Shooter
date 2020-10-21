@@ -1,8 +1,5 @@
-﻿using System;
-using Gameplay;
+﻿using Gameplay;
 using Player;
-using UnityEngine;
-using Weapons;
 
 namespace Targets
 {

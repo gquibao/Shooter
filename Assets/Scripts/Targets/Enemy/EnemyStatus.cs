@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Gameplay;
-using Targets;
-using UnityEngine;
+﻿using Gameplay;
 
-public class EnemyStatus : Target
+namespace Targets.Enemy
 {
-    private float _damage;
-    void Start()
+    public class EnemyStatus : Target
     {
-        Life = targetData.life;
-        _damage = targetData.damage;
-    }
+        private float _damage;
+        void Start()
+        {
+            Life = targetData.life;
+            _damage = targetData.damage;
+        }
 
-    private void OnDestroy()
-    {
-        if(GameManager.IsGameRunning)
-            GameManager.AddPoints(20);
+        private void OnDestroy()
+        {
+            if(GameManager.IsGameRunning)
+                GameManager.AddPoints(20);
+        }
     }
 }

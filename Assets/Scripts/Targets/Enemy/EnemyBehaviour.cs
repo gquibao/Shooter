@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Targets.Enemy
 {
@@ -35,13 +33,10 @@ namespace Targets.Enemy
         {
             yield return new WaitForSeconds(1.5f);
             lineRenderer.SetPosition(1, playerCurrentPosition);
-            var newPoints = new Vector2[2];
-            newPoints[0] = Vector2.zero;
-            newPoints[1] = playerCurrentPosition;
-            lineCollider.points = newPoints;
+            ChangeEdgeColliderPoints(playerCurrentPosition);
             yield return new WaitForSeconds(2);
             lineRenderer.SetPosition(1, Vector2.zero);
-            lineCollider.points[1] = Vector2.zero;
+            ChangeEdgeColliderPoints(Vector2.zero);
             _attackingCoroutine = null;
             _wanderingCoroutine = StartCoroutine(Wandering(GetDirection()));
         }
@@ -55,6 +50,14 @@ namespace Targets.Enemy
             StopAllCoroutines();
             var direction = player.transform.position - transform.position;
             _attackingCoroutine = StartCoroutine(Fire(direction));
+        }
+
+        private void ChangeEdgeColliderPoints(Vector2 value)
+        {
+            var newPoints = new Vector2[2];
+            newPoints[0] = Vector2.zero;
+            newPoints[1] = value;
+            lineCollider.points = newPoints;
         }
 
         private IEnumerator Move(Vector2 targetPosition)

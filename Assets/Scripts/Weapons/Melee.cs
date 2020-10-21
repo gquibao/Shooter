@@ -1,8 +1,5 @@
-﻿using System;
-using Targets;
-using UnityEditor;
+﻿using Targets;
 using UnityEngine;
-using UnityEngine.Animations;
 
 namespace Weapons
 {
