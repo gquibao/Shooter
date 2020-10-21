@@ -6,18 +6,20 @@ namespace Weapons
     public abstract class Weapon : IWeapon
     {
         protected int CurrentAmmo;
-        protected int MaxAmmo;
-        protected float Damage;
-        protected float Range;
-        protected Sprite CharacterSprite;
+        protected readonly float Damage;
+        private readonly int _maxAmmo;
+        private readonly float _range;
+        private readonly Sprite _characterSprite;
+        private GameObject _effect;
 
         protected Weapon(WeaponData data)
         {
             Damage = data.damage;
-            Range = data.range;
-            CharacterSprite = data.characterSprite;
-            MaxAmmo = data.maxAmmo;
-            CurrentAmmo = MaxAmmo;
+            _range = data.range;
+            _characterSprite = data.characterSprite;
+            _maxAmmo = data.maxAmmo;
+            CurrentAmmo = _maxAmmo;
+            _effect = data.effect;
         }
         public virtual void Fire(Vector2 startPosition, Vector2 direction, LayerMask layerMask)
         {
@@ -26,23 +28,28 @@ namespace Weapons
 
         protected RaycastHit2D CheckForHit(Vector2 startPosition, Vector2 direction, LayerMask layerMask)
         {
-            return Physics2D.Raycast(startPosition, direction, Range, layerMask);
+            return Physics2D.Raycast(startPosition, direction, _range, layerMask);
         }
 
         public void AddAmmo()
         {
-            CurrentAmmo += MaxAmmo / 2;
-            CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0, MaxAmmo);
+            CurrentAmmo += _maxAmmo / 2;
+            CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0, _maxAmmo);
         }
 
         public Sprite GetSprite()
         {
-            return CharacterSprite;
+            return _characterSprite;
         }
 
         public Tuple<int, int> GetAmmo()
         {
-            return new Tuple<int, int>(CurrentAmmo, MaxAmmo);
+            return new Tuple<int, int>(CurrentAmmo, _maxAmmo);
+        }
+
+        protected void SpawnEffect(Vector2 position)
+        {
+            GameObject.Instantiate(_effect, position, Quaternion.identity);
         }
     }
 }

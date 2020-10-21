@@ -9,5 +9,6 @@ namespace Weapons
         public int maxAmmo;
         public float range;
         public Sprite characterSprite;
+        public GameObject effect;
     }
 }
