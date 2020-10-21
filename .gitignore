@@ -8,6 +8,7 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 /.idea
+/Shooter_BackUpThisFolder_ButDontShipItWithYourGame/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
