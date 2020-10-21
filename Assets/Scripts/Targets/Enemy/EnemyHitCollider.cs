@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Targets.Enemy
 {
-    public class EnemyAim : MonoBehaviour
+    public class EnemyHitCollider : MonoBehaviour
     {
         private void OnTriggerEnter2D(Collider2D other)
         {

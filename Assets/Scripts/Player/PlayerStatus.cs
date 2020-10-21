@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Gameplay;
 using UnityEngine;
 using Weapons;
-using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -20,6 +19,7 @@ namespace Player
         [SerializeField] private WeaponData smgData;
         [SerializeField] private WeaponData missileData;
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private GameObject hitEffect;
 
         public Weapon CurrentWeapon;
 
@@ -66,6 +66,7 @@ namespace Player
             _health -= damageAmount;
             Hud.OnHealthCountUpdated.Invoke(new Tuple<float, float>(_health, MAXHealth));
             if(_health <= 0) Hud.OnGameOver.Invoke();
+            Instantiate(hitEffect, transform.position, Quaternion.identity);
         }
     }
 }
